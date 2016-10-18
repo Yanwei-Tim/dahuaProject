@@ -1,8 +1,7 @@
 $(function(){
 	var $nav=$('.dahua_nav li[class*="pro_menu"]');
 	var box=$('div[class*="pro_box"]');
-/*	var conter=function(name){
-		this.fun=function(){*/
+
 		$nav.each(function(idx,domEle){
 			var $domEle=$(domEle);//遍历每个元素
 			var $l=$(box[idx]);
@@ -26,12 +25,8 @@ $(function(){
 		$('.dahua_search').animate({'height':'0'},300);
 	})
 
-	// }
- // }
-/*	var ms=new conter(nav);
-	var ls=new conter(box);
-	ms.fun();
-	ls.fun();*/
+
+
 
 	//视频部分
 	$(".videos").hover(function(){
@@ -82,7 +77,6 @@ $(function(){
 //回到顶部
 window.onscroll=function(){
     var oScroll=document.getElementById('getTop');
-    // var winH=document.body.clientHeight;
     var scrollT=parseInt(document.body.scrollTop)||parseInt(document.documentElement.scrollTop)||parseInt(window.pageYOffset);  
     var time=null;
     var speed=0;
@@ -109,18 +103,7 @@ window.onscroll=function(){
 
 
 //轮播广告控制器
-/*$(function(){
-	var app=angular.module('dahua',['ng']);
 
-
-	app.controller('carouselCrtl',["$scope","$http",function ($scope,$http) {
-		$http.get('data/navPic.php')
-			.success(function (data) {
-				$scope.picList=data;
-				// console.log($scope.picList)
-			})
-	}])
-})*/
 $(function () {
 	$.get('data/navPic.php',function (list) {
 		var html="";
@@ -146,20 +129,39 @@ $(function () {
 //新品速度数据加载
 $(function () {
 	$.get('data/proPic.php',function (list) {
+		//console.log(list);
+		var num=list.length/4;
+		var arr=[];
+		for(var j=0;j<num;j++){
+			arr.push(list.splice(0,4));
+		}
+		//console.log(arr);
+
 		var html="";
-		$.each(list,function (i,p) {
-				html += `
-				<dl class="pro_list2">
-                            <dt><img src="img/${p.pro_pic}" alt=""></dt>
-                            <dd class="pro_name">${p.pro_name}</dd>
-                            <dd  class="pro_model">${p.pro_model}</dd>
-                            <dd class="pro_dec">${p.pro_dec}</dd>
+		var dhtml="";
+
+		$.each(arr,function (i,p) {
+				arr[i].forEach(function (v,k,Ele) {
+					dhtml += `
+						<dl class="pro_list2">
+                            <dt><img src="img/${v.pro_pic}" alt=""></dt>
+                            <dd class="pro_name">${v.pro_name}</dd>
+                            <dd  class="pro_model">${v.pro_model}</dd>
+                            <dd class="pro_dec">${v.pro_dec}</dd>
                             <dd  class="pro_more"><a href="">点击更多>></a></dd>
-                        </dl>			
-			`;
+                        </dl>
+					`;
+
+
+				})
+				html+=`<div class="item pro_item">
+							${dhtml}
+						</div>`;
+				dhtml="";
 			});
-			$('#myCarousel2>.carousel-inner .item').html(html);
-			// $('#myCarousel2 .carousel-inner .item').html(html);
+
+		$('#myCarousel2>.carousel-inner').html(html);
+		$('#myCarousel2>.carousel-inner>.item:first-child').addClass('active');
 		})
 	});
 
