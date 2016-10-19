@@ -69,9 +69,9 @@ $(function(){
 
 
 	$('[class^="core-img"]').hover(function () {
-		$(this).children('.core-modal').fadeIn(500);
+		$(this).children('.core-modal').stop().fadeIn(500);
 	},function(){
-		$(this).children('.core-modal').fadeOut(300);
+		$(this).children('.core-modal').stop().fadeOut(300);
 	})
 });
 //回到顶部
