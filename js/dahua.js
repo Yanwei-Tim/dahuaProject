@@ -20,9 +20,9 @@ $(function(){
 
 	//搜索框弹出
 	$('.dahua_nav li:last-child ').hover(function(){
-		$('.dahua_search').animate({'height':'80px'},300);
+		$('.dahua_search').stop().animate({'height':'80px'},300);
 	},function(){
-		$('.dahua_search').animate({'height':'0'},300);
+		$('.dahua_search').stop().animate({'height':'0'},300);
 	})
 
 
