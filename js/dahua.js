@@ -6,14 +6,14 @@ $(function(){
 			var $domEle=$(domEle);//遍历每个元素
 			var $l=$(box[idx]);
 			$(this).hover(function(){
-				$l.slideDown().siblings().hide();
+				$l.stop().slideDown();
 			},function(){
-				$l.hide();
+				$l.stop().slideUp();
 			});
 			$l.hover(function(){
-				$(this).show()
+				$(this).stop().slideDown();
 			},function(){
-				$(this).slideUp();
+				$(this).stop().slideUp();
 			})
 			
 		})
